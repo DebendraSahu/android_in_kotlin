@@ -34,17 +34,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.debend.todo_with_view_model.ui.theme.ToDoWithViewModelTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+    private val todoViewModel: TodoViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ToDoWithViewModelTheme {
-                HomeScreen(TodoViewModel(TaskRepository()))
+                HomeScreen(todoViewModel)
             }
         }
     }
