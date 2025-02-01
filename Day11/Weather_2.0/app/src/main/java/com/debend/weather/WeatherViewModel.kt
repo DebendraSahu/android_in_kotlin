@@ -6,14 +6,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class WeatherViewModel() : ViewModel() {
-    private val weatherRepository: WeatherRepository = WeatherRepository()
+class WeatherViewModel(
+    private val repository: WeatherRepository
+) : ViewModel() {
     private val _weatherState = MutableStateFlow<WeatherState>(WeatherState.Loading)
     val weatherState: StateFlow<WeatherState> = _weatherState
 
-    fun fetchWeather(city: String, apiKey: String) {
+    fun fetchWeather(cityName: String) {
         viewModelScope.launch {
-            _weatherState.value = weatherRepository.getWeather(city, apiKey)
+            try {
+                val weather = repository.getWeather(cityName)
+                _weatherState.value = WeatherState.Success(weather)
+            } catch (e: Exception) {
+                _weatherState.value = WeatherState.Error(e.message ?: "Unknown error")
+            }
         }
     }
 }

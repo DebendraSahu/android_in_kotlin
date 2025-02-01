@@ -50,8 +50,6 @@ import java.util.Date
 import java.util.Locale
 
 
-const val WEATHER_API_KEY: String = "dbd3b02d8958d62185d02e944cd5f522"
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +65,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WeatherApp() {
     val viewModel: WeatherViewModel = viewModel()
-    val apiKey = WEATHER_API_KEY // Replace with your OpenWeatherMap API key
     var city by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -81,7 +78,7 @@ fun WeatherApp() {
                 value = city,
                 onValueChange = { city = it },
                 label = { Text("Enter city") })
-            Button(onClick = { viewModel.fetchWeather(city, apiKey) }) {
+            Button(onClick = { viewModel.fetchWeather(city) }) {
                 Text("SEARCH", modifier = Modifier.fillMaxWidth(0.6F))
             }
         }
@@ -90,7 +87,7 @@ fun WeatherApp() {
 
     // Fetch weather for default city on launch
     LaunchedEffect(Unit) {
-        viewModel.fetchWeather("Hyderabad", WEATHER_API_KEY)
+        viewModel.fetchWeather("Hyderabad")
     }
 }
 
