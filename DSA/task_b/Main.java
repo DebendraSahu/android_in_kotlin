@@ -2,9 +2,11 @@ package task_b;
 
 public class Main {
     public static void main(String[] args) {
-        // linearLinkedList();
-        // doubleLinkedList();
+        linearLinkedList();
+        doubleLinkedList();
         circularLinkedList();
+        BasicProblemsOnll problems = new BasicProblemsOnll();
+        problems.runAllProblems();
     }
 
     public static void circularLinkedList() {
@@ -26,8 +28,8 @@ public class Main {
         System.out.println("Values: " + list.toString());
         list.removeLast();
         System.out.println("Values: " + list.toString());
-        list.remove(0);
-        System.out.println("Values: " + list.toString());
+        // list.remove(0);
+        // System.out.println("Values: " + list.toString());
         list.remove(5);
         System.out.println("Values: " + list.toString());
     }
