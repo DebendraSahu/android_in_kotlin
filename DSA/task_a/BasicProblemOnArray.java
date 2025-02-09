@@ -1,3 +1,5 @@
+package task_a;
+
 import java.util.Arrays;
 
 public class BasicProblemOnArray {
