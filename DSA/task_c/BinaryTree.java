@@ -30,6 +30,24 @@ package task_c;
          return Math.max(leftDepth, rightDepth) + 1;
      }
 
+     public  boolean areIdentical(Node root1, Node root2) {
+         // Base case: If both trees are empty, they are identical
+         if (root1 == null && root2 == null) {
+             return true;
+         }
+
+         // If one tree is empty and the other is not, they are not identical
+         if (root1 == null || root2 == null) {
+             return false;
+         }
+
+         // Check if the values of the current nodes are equal
+         // and recursively check the left and right subtrees
+         return (root1.value == root2.value) &&
+                 areIdentical(root1.left, root2.left) &&
+                 areIdentical(root1.right, root2.right);
+     }
+
 
      public void populate(Scanner scanner) {
          System.out.println("Enter the Root Node");

@@ -11,6 +11,7 @@ public class Main {
         tree.display();
         scanner.close();
         System.out.println("Max depth of tree: " + tree.getMaxDepth());
+        System.out.println("Checking different roots are idetical: " + tree.areIdentical(tree.root, tree.root.left));
     }
 }
 
