@@ -10,6 +10,7 @@ public class Main {
         tree.populate(scanner);
         tree.display();
         scanner.close();
+        System.out.println("Max depth of tree: " + tree.getMaxDepth());
     }
 }
 

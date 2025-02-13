@@ -1,7 +1,5 @@
 package task_c;
 
-
-
  import java.util.Locale;
  import java.util.Scanner;
 
@@ -16,6 +14,22 @@ package task_c;
              this.value = value;
          }
      }
+     public int getMaxDepth() {
+         return maxDepth(root);
+     }
+     private int maxDepth(Node root) {
+         if (root == null) {
+             return 0; // Base case: If the node is null, depth is 0
+         }
+
+         // Recursively find the depth of left and right subtrees
+         int leftDepth = maxDepth(root.left);
+         int rightDepth = maxDepth(root.right);
+
+         // Return the maximum of the two depths, plus 1 for the current node
+         return Math.max(leftDepth, rightDepth) + 1;
+     }
+
 
      public void populate(Scanner scanner) {
          System.out.println("Enter the Root Node");
