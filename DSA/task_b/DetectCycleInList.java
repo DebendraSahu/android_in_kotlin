@@ -1,15 +1,15 @@
 package task_b;
 
-public class DetectCycleInList {
-    private class ListNode {
-        int val;
-        ListNode next;
+class ListNode {
+    int val;
+    ListNode next;
 
-        ListNode(int x) {
-            val = x;
-        }
+    ListNode(int x) {
+        val = x;
     }
+}
 
+public class DetectCycleInList {
     public ListNode detectCycle(ListNode head) {
         ListNode slow = head, fast = head;
         boolean hasCycle = false;
