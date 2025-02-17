@@ -3,104 +3,63 @@ package com.debend.coroutines_example
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.*
-import kotlin.random.Random
+import androidx.room.Room
 
 class MainActivity : ComponentActivity() {
-    private var isActive = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the Room database
+        val db = Room.databaseBuilder(
+            applicationContext, UserDatabase::class.java, "user_database"
+        ).build()
+
+        // Create an instance of the UserDao
+        val userDao = db.userDao()
+
+        // Create a UserViewModel using the UserDao
+        val userViewModel = UserViewModel(userDao)
+
         setContent {
             MaterialTheme {
-                CoroutineSimulationApp()
+                // Pass the ViewModel to the composable
+                UserApp(viewModel = userViewModel)
             }
         }
     }
+}
 
-    @Composable
-    fun CoroutineSimulationApp() {
-        var userData by remember { mutableStateOf("Fetching user data...") }
-        var isFetching by remember { mutableStateOf(false) }
-        var coroutineScope: CoroutineScope? = remember { null }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            Arrangement.Center,
-            Alignment.CenterHorizontally
+@Composable
+fun UserApp(viewModel: UserViewModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Button(
+            onClick = { viewModel.fetchUsers() }, modifier = Modifier.padding(bottom = 16.dp)
         ) {
-            Text(text = userData, style = MaterialTheme.typography.bodyLarge)
+            Text("Fetch Users")
+        }
 
-            Button(
-                onClick = {
-                    userData = "Fetching user data..."
-                    // Cancel any ongoing coroutine before starting a new one
-                    coroutineScope?.cancel()
-
-                    // Create a new CoroutineScope for structured concurrency
-                    coroutineScope = CoroutineScope(Dispatchers.Main)
-                    isActive = true
-                    isFetching = true
-                    coroutineScope?.launch {
-                        try {
-                            val nameDeferred = async { fetchUserName() }
-                            val ageDeferred = async { fetchUserAge() }
-
-                            // Wait for both API calls to complete
-                            val name = nameDeferred.await()
-                            val age = ageDeferred.await()
-
-                            userData = "User: $name, Age: $age"
-                        } catch (e: CancellationException) {
-                            userData = "Fetching canceled!"
-                        } finally {
-                            isFetching = false
-                        }
-                    }
-                }, modifier = Modifier.padding(top = 16.dp), enabled = !isFetching
-            ) {
-                Text("Fetch User Data")
-            }
-
-            Button(
-                onClick = {
-                    isActive = false
-                    coroutineScope?.cancel()
-                }, modifier = Modifier.padding(top = 16.dp), enabled = isFetching
-            ) {
-                Text("Cancel Fetch")
+        LazyColumn {
+            items(viewModel.userList) { user ->
+                Text(
+                    text = "Name: ${user.name}, Age: ${user.age}", modifier = Modifier.padding(8.dp)
+                )
             }
         }
-    }
-
-    // Simulated API to fetch user name (2-second delay)
-    private suspend fun fetchUserName(): String {
-        for (i in 0..19) {  // 20 small delays of 100ms
-            if (!isActive) throw CancellationException("Fetch UserName canceled!")
-            delay(100)  // Small delay to ensure cancellation checks
-        }
-        return listOf("John", "Jane", "Alice", "Bob").random()
-    }
-
-    // Simulated API to fetch user age (3-second delay)
-    private suspend fun fetchUserAge(): Int {
-        for (i in 0..29) {  // 30 small delays of 100ms
-            if (!isActive) throw CancellationException("Fetch UserAge canceled!")
-            delay(100)
-        }
-        return Random.nextInt(18, 60)
     }
 }
