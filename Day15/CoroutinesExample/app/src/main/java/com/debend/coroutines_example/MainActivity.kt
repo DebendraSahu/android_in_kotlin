@@ -53,6 +53,12 @@ fun UserApp(viewModel: UserViewModel) {
         ) {
             Text("Fetch Users")
         }
+        Button(
+            onClick = { viewModel.addUser(User(3, "Dev", 25)) },
+            modifier = Modifier.padding(bottom = 16.dp)
+        ) {
+            Text("Add Users")
+        }
 
         LazyColumn {
             items(viewModel.userList) { user ->
