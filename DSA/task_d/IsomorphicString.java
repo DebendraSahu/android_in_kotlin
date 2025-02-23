@@ -1,3 +1,5 @@
+package task_d;
+
 public class IsomorphicString {
     public static void main(String[] args) {
         System.out.println("is isomorphic :" + isIsomorphic("aac", "eeg"));
