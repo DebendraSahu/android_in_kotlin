@@ -42,6 +42,20 @@ class BstTree {
         }
     }
 
+    private int height(Node root) {
+        if (root == null) return -1;
+
+        // compute the height of left and right subtrees
+        int lHeight = height(root.left);
+        int rHeight = height(root.right);
+
+        return Math.max(lHeight, rHeight) + 1;
+    }
+
+    public int getHeight() {
+        return height(root);
+    }
+
     public int findLargestValue() {
         if (root == null) return -1;
         Node temp = root;
@@ -98,5 +112,6 @@ public class BstOperation {
         tree.print();
         System.out.println("Max in tree is " + tree.findLargestValue());
         System.out.println("Min in tree is " + tree.findSmallestValue());
+        System.out.println("height of tree is " + tree.getHeight());
     }
 }
