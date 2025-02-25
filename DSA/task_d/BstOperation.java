@@ -56,6 +56,30 @@ class BstTree {
         return height(root);
     }
 
+    public void display() {
+        StringBuilder output = new StringBuilder();
+        displayPretty(root, 0, output);
+        System.out.println(output);
+    }
+
+    private void displayPretty(Node node, int level, StringBuilder indentBuilder) {
+        if (node == null) return;
+        displayPretty(node.right, level + 1, indentBuilder);
+        if (level != 0) {
+            for (int i = 0; i < level - 1; i++) {
+                System.out.print("|\t\t");
+                indentBuilder.append("|\t\t");
+            }
+            System.out.println("|------>" + node.value);
+            indentBuilder.append("|------>").append(node.value).append("\n");
+        } else {
+            System.out.println(node.value);
+            indentBuilder.append(node.value).append("\n");
+        }
+        displayPretty(node.left, level + 1, indentBuilder);
+
+    }
+
     public int findLargestValue() {
         if (root == null) return -1;
         Node temp = root;
@@ -113,5 +137,6 @@ public class BstOperation {
         System.out.println("Max in tree is " + tree.findLargestValue());
         System.out.println("Min in tree is " + tree.findSmallestValue());
         System.out.println("height of tree is " + tree.getHeight());
+        tree.display();
     }
 }
