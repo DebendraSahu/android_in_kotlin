@@ -26,11 +26,9 @@ public class MaxSubArraySum {
         if (arr == null) return -1;
         int maxSum = Integer.MIN_VALUE;
         for (int i = 1; i < arr.length; i++) {
+            int sum = 0;
             for (int j = i; j < arr.length; j++) {
-                int sum = 0;
-                for (int k = i; k <= j; k++) {
-                    sum += arr[k];
-                }
+                sum += arr[j];
                 maxSum = Math.max(maxSum, sum);
             }
         }
