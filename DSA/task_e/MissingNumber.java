@@ -1,25 +1,21 @@
 package task_e;
 
-import java.util.ArrayList;
 
 public class MissingNumber {
     static int missingNumber(int[] numbers) {
-        int len = numbers.length;
-        boolean[] contains = new boolean[len + 1];
-        contains[0] = true;
-
+        int len = numbers.length + 1;
+//       Sn = (n * (n + 1)) / 2 Gp
+        int expectedTotal = (len * (1 + len)) / 2;
+        int actualTotal = 0;
         for (int num : numbers) {
-            contains[num - 1] = true;
+            actualTotal += num;
         }
-
-        for (int i = 0; i < contains.length; i++) {
-            if (!contains[i]) return i + 1;
-        }
-        return -1;
+        return expectedTotal - actualTotal;
     }
 
+
     public static void main(String[] args) {
-        int[] arr = {1, 2, 4, 6, 3};
+        int[] arr = {1, 2, 4, 6, 3, 7, 8, 9, 10, 11};
         int res = missingNumber(arr);
 
         System.out.print("Missing number is :" + res);
