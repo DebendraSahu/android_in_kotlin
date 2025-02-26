@@ -26,7 +26,7 @@ public class MaxSubArraySum {
         if (arr == null) return -1;
         int maxSum = Integer.MIN_VALUE;
         int sum = 0;
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
             if (sum < 0) { //reset and start calculating for next index
                 sum = 0;
