@@ -6,18 +6,24 @@ public class SubArraySum {
     static ArrayList<Integer> subArraySum(int[] numbers, int target) {
         ArrayList<Integer> subArray = new ArrayList<>(2);
         int len = numbers.length;
+        int sum = 0, s = 0, e = 0;
+
         for (int i = 0; i < len; i++) {
-            int sum = 0;
-            for (int j = i; j < len; j++) {
-                sum += numbers[j];
+            sum += numbers[i];
+            if (sum >= target) {
+                e = i;
+                while (sum > target && s < e) {
+                    sum -= numbers[s];
+                    s++;
+                }
+
                 if (sum == target) {
-                    subArray.add(i + 1);
-                    subArray.add(j + 1);
+                    subArray.add(s + 1);
+                    subArray.add(e + 1);
                     return subArray;
                 }
             }
         }
-
         subArray.add(-1);
         return subArray;
     }
