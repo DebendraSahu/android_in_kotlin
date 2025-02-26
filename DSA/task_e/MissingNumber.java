@@ -17,11 +17,12 @@ public class MissingNumber {
         return expectedTotal - actualTotal;
     }
 
-    static int missingNumber(int[] a, int n) {
+    static int missingNumberUsingXor(int[] nums) {
         int xor1 = 0, xor2 = 0;
+        int n = nums.length + 1;
 
         for (int i = 0; i < n - 1; i++) {
-            xor2 = xor2 ^ a[i]; // XOR of array elements
+            xor2 = xor2 ^ nums[i]; // XOR of array elements
             xor1 = xor1 ^ (i + 1); //XOR up to [1...N-1]
         }
         xor1 = xor1 ^ n; //XOR up to [1...N]
@@ -31,7 +32,7 @@ public class MissingNumber {
 
     public static void main(String[] args) {
         int[] arr = {1, 2, 4, 6, 3, 7, 8, 9, 10, 11};
-        int res = missingNumber(arr, 11);
+        int res = missingNumberUsingXor(arr);
         System.out.print("Missing number is :" + res);
     }
 }
