@@ -25,11 +25,14 @@ public class MaxSubArraySum {
     static int maxSubArraySum(int[] arr) {
         if (arr == null) return -1;
         int maxSum = Integer.MIN_VALUE;
+        int sum = 0;
         for (int i = 1; i < arr.length; i++) {
-            int sum = 0;
-            for (int j = i; j < arr.length; j++) {
-                sum += arr[j];
-                maxSum = Math.max(maxSum, sum);
+            sum += arr[i];
+            if (sum < 0) { //reset and start calculating for next index
+                sum = 0;
+            }
+            if (sum > maxSum) {
+                maxSum = sum;
             }
         }
         return maxSum;
