@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class SubArraySumToK {
     public static void main(String[] args) {
-        int[] arr = {3, 1, 2, 4};
-        int length = findSubArraySumToK(arr, 6);
+        int[] arr = {1, 1, 2, 3, 0};
+        int length = findSubArraySumToK(arr, 4);
         System.out.println("Longest subsequent " + length);
         length = findAllSubArraysWithGivenSum(arr, 6);
         System.out.println("Longest subsequent " + length);
@@ -26,16 +26,16 @@ public class SubArraySumToK {
         return count;
     }
 
-    public static int findAllSubArraysWithGivenSum(int[] arr, int target) {
+    public static int findAllSubArraysWithGivenSum(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         int preSum = 0, cnt = 0;
         map.put(0, 1); // Setting 0 in the map.
 
-        for (int j : arr) {
+        for (int j : nums) {
             // add current element to prefix Sum:
             preSum += j;
             // Calculate x-k:
-            int remove = preSum - target;
+            int remove = preSum - k;
 
             // Add the number of sub-arrays to be removed:
             cnt +=  map.getOrDefault(remove, 0);
