@@ -5,7 +5,7 @@
 * **Java Syntax & Core**
 
   * [x] Install JDK & set `JAVA_HOME`
-  * [ ] “Hello World” & basic `main()`
+  * [x] “Hello World” & basic `main()`
   * [ ] Primitive types & ranges
   * [ ] Reference types & null
   * [ ] Operators: arithmetic, bitwise, logical
