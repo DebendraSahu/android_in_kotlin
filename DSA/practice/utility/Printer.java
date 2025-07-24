@@ -1,5 +1,8 @@
 package practice.utility;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Printer {
 
     // ANSI Color Codes
@@ -8,6 +11,7 @@ public class Printer {
     public static final String RED = "\u001B[31m";
     public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss:SSS");
 
     public static void print(String color, String msg) {
         System.out.println(color + msg + RESET);
@@ -17,8 +21,8 @@ public class Printer {
         if (description == null)
             return;
 
-        final int TOTAL_WIDTH = 40;
-        final int MAX_MSG_WIDTH = 25;
+        final int TOTAL_WIDTH = 50;
+        final int MAX_MSG_WIDTH = 30;
 
         String remaining = description.trim();
 
@@ -49,15 +53,19 @@ public class Printer {
         }
     }
 
+    private static String getTimestamp() {
+        return "[" + LocalTime.now().format(TIME_FORMATTER) + "]";
+    }
+
     public static void printWarning(String msg) {
-        print(YELLOW, msg);
+        print(YELLOW, getTimestamp() + " " + msg);
     }
 
     public static void printError(String msg) {
-        print(RED, msg);
+        print(RED, getTimestamp() + " " + msg);
     }
 
     public static void printInfo(String msg) {
-        print(GREEN, msg);
+        print(GREEN, getTimestamp() + " " + msg);
     }
 }
