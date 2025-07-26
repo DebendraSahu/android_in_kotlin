@@ -6,13 +6,13 @@
 
   * [x] Install JDK & set `JAVA_HOME`
   * [x] “Hello World” & basic `main()`
-  * [ ] Primitive types & ranges
-  * [ ] Reference types & null
-  * [ ] Operators: arithmetic, bitwise, logical
-  * [ ] Implicit vs. explicit casting
-  * [ ] `String` vs. `StringBuilder`
-  * [ ] String formatting (`printf`, `String.format`)
-  * [ ] Reading console input (`Scanner`, `BufferedReader`)
+  * [x] Primitive types & ranges
+  * [x] Reference types & null
+  * [x] Operators: arithmetic, bitwise, logical
+  * [x] Implicit vs. explicit casting
+  * [x] `String` vs. `StringBuilder`
+  * [x] String formatting (`printf`, `String.format`)
+  * [x] Reading console input (`Scanner`, `BufferedReader`)
 * **Control Flow**
 
   * [ ] `if` / `else if` / `else`
